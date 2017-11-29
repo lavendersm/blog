@@ -1,0 +1,107 @@
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<link rel="stylesheet" href="./css/reset.css">
+<link rel="stylesheet" href="./css/index.css">
+    <style type="text/css">
+        h4{
+            display:inline-block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>薰のBlog</h1>
+        <h4>乘风行,无惧</h4>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="">首页</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">留言</a></li>
+            <li><a href="artadd.php">文章</a></li>
+            <li><a href="catadd.php">栏目</a></li>
+        </ul>
+    </nav>
+
+    <div id="main">
+        <div id="lside">
+            <?php foreach($arts as $a ) {?>
+            <article>
+                <h2><a href="art.php?art_id=<?php echo $a['art_id'];?>"><?php echo $a['title'];?></a></h2>
+                <div class="entry_header">
+                    <time><?php echo date('Y/m/d' , $a['pubtime']);?></time>
+                    by
+                    <a href="#"><?php echo $a['author'];?></a>
+                    <a class="catlink" href="#"><?php echo $a['catname'];?></a>
+                    <a class="comment" href="#"><?php echo $a['comm'];?>条评论</a>
+                </div>
+                <?php if($a['thumb']) {?>
+                <img src="<?php echo '.' . $a['thumb'];?>" alt="">
+                <?php }?>
+                <div class="entry_content">
+                    <?php echo $a['content'];?>
+                </div>
+            </article>
+            <?php }?>
+            <div id="pagebar">
+                Pages:&nbsp;
+                <?php foreach($page as $k=>$v) {?>
+                <?php if($k == $curr) {?>
+                <?php echo $k;}else {?>
+                <a href="index.php?<?php echo $v;?>"><?php echo $k;?></a>
+                <?php }?>
+                <?php }?>
+            </div>
+        </div>
+        <div id="rside">
+            <aside>
+                <form action="">
+                    <input type="text" name="search" placeholder="Search...">
+                </form>
+            </aside>
+            <aside>
+               <a href="catlist.php" style="color:#000 "> <h4>栏目列表</h4></a>  |  <a href="catadd.php" style="color:#000 "> <h4>栏目添加 </h4></a>
+                <ul>
+                    <?php foreach($cats as $c) {?>
+                    <li><a href="index.php?cat_id=<?php echo $c['cat_id'];?>"><?php echo $c['catname'];?></a></li>
+                    <?php }?>
+                </ul>
+            </aside>
+            <aside>
+                <a href="artlist.php" style="color:#000 "> <h4>文章列表</h4></a>  |  <a href="artadd.php" style="color:#000 "> <h4>发表文章</h4></a>
+                <ul>
+                    <?php foreach($arts as $c) {?>
+                    <li><a href="art.php?art_id=<?php echo $c['art_id'];?>"><?php echo $c['title'];?></a></li>
+                    <?php }?>
+                </ul>
+                </ul>
+            </aside>
+            <aside>
+                <a href="" style="color:#000 "><h4>兴趣爱好</h4></a>
+                <ul>
+                    <li><a href="">做数据库课设</a></li>
+                    <li><a href="">做数据库课设</a></li>
+                    <li><a href="">做数据库课设</a></li>
+                    <li><a href="">做数据库课设</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <a href="" style="color:#000 "><h4>兴趣爱好</h4></a>
+                <ul>
+                    <li><a href="">学习数据库</a></li>
+                    <li><a href="">学习数据库</a></li>
+                    <li><a href="">学习数据库</a></li>
+                    <li><a href="">学习数据库</a></li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+    <footer>
+        Copyright &copy; 2017 · GeneratePress · WordPress
+    </footer>
+</body>
+</html>
